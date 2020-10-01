@@ -27,6 +27,7 @@ class bot_basico(Player): #Falta programar Player
                         'jugadas': [(fila, columna, fichas[i])],
                         'score': tablero.score() #agrega a la lista la jugada y el puntaje obtenido
                     })
+                    fichas_restantes = fichas.copy()
                     fichas_restantes.pop(i) #elimina la ficha que ya se usó
                     break
                 except InvalidPlayException: #si la jugada no es valida, tira una excepción | falta programar

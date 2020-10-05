@@ -74,13 +74,13 @@ class Jugador:
     def score(self):
         return self._score
 
-    def add_points(self, puntos):
+    def agregar_puntos(self, puntos):
         self._score += puntos
 
     def sin_fichas(self):
         return len(self._fichas) == 0
 
-    def name(self):
+    def nombre(self):
         return self._nombre
 
     def get_fichas(self):

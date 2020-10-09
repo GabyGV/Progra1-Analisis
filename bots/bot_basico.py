@@ -9,31 +9,20 @@
 ####################################################
 
 import copy
+from player import Player
 from tablero import InvalidPlayException
 
 
-class bot_basico(Player): #Falta programar Player
+
+class bot_basico(Player):
     def jugar_turno(self, tablero):
         starts_validos = tablero.jugadas_posibles() #verifica cuales son las jugadas disponibles
+        fichas = self._fichas.copy() #copia las fichas que tiene Player
 
         jugadas = [] #almacenará las jugadas posibles con sus puntajes
-        for (fila, columna) in starts_validos: #por cada jugada valida
-            fichas = self._fichas.copy() #copia las fichas que tiene Player
+        bot_backtraking(tablero, jugadas, starts_validos, fichas, 0)
 
-            for i in range(len(fichas)): #por cada ficha 
-                try:
-                    tablero.jugar(fichas[i], x=fila, y=columna) #manda a jugar a la ficha en la posición disponible
-                    jugadas.append({ 
-                        'jugadas': [(fila, columna, fichas[i])],
-                        'score': tablero.score() #agrega a la lista la jugada y el puntaje obtenido
-                    })
-                    fichas_restantes = fichas.copy()
-                    fichas_restantes.pop(i) #elimina la ficha que ya se usó
-                    break
-                except InvalidPlayException: #si la jugada no es valida, tira una excepción | falta programar
-                    pass
-
-            tablero.reiniciar_turno() #deja el tablero como antes
+        tablero.reiniciar_turno() #deja el tablero como antes
 
         if len(jugadas) == 0: 
             return
@@ -43,3 +32,18 @@ class bot_basico(Player): #Falta programar Player
         for (fila, columna, ficha) in mejor_jugada['jugadas']: #por cada una de las mejores jugadas
             tablero.jugar(ficha, fila, columna) #realiza la jugada en el tablero
             self._fichas.pop(self._fichas.index(ficha))  #elimina la ficha usada
+
+#Backtraking
+def bot_backtraking(tablero, jugadas, starts_validos, fichas, i):
+    for (fila, columna) in starts_validos:
+        try:
+            tablero.jugar(fichas[i], x=fila, y=columna) #manda a jugar a la ficha en la posición disponible
+            jugadas.append({ 
+            'jugadas': [(fila, columna, fichas[i])],
+            'score': tablero.score() #agrega a la lista la jugada y el puntaje obtenido #antes de esto puede estar la condición de poda
+            })
+        except InvalidPlayException: #si la jugada no es valida, tira una excepción | falta programar
+                pass
+
+        bot_basico(tablero, jugadas, fichas, i+1)
+    return jugadas

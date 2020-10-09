@@ -50,5 +50,5 @@ def bot_backtraking(tablero, starts_validos, fichas, i):
         except InvalidPlayException: #si la jugada no es valida, tira una excepción 
                 pass
 
-        bot_basico(tablero, jugadas, fichas, i+1)
+        bot_backtraking(tablero, starts_validos, fichas, i+1)
     return 

@@ -11,6 +11,7 @@
 #Librerías
 from termcolor import colored
 import copy
+from Tablero import InvalidPlayException
 
 class Tablero:
 
@@ -59,7 +60,7 @@ class Tablero:
             columna = 1
         else:
             if not self.la_jugada_es_valida(ficha, fila, columna): #si la jugada no es válida, devuelve una excepción
-                raise InvalidPlayException() #falta programar la excepcion
+                raise InvalidPlayException() 
 
         self._tablero[columna][fila] = ficha #coloca la ficha en el tablero
         self._jugadas.append((fila, columna)) #agrega la jugada a la lista de jugadas

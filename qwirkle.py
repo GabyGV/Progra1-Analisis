@@ -17,9 +17,9 @@ class QwirkleGame:
         numero_de_jugador = 1
         for jugador in jugadores:
             if jugador == 'bot_basico':
-                self._jugadores.append(GreedyBot('Jugador %i' % numero_de_jugador))
+                self._jugadores.append(bot_basico('Jugador %i' % numero_de_jugador))
             elif jugador == 'bot_mejorado':
-                self._jugadores.append(SingleGreedyBot('Jugador %i' % numero_de_jugador))
+                self._jugadores.append(bot_mejorado('Jugador %i' % numero_de_jugador))
             elif jugador == 'humano':
                 self._jugadores.append(Jugador('Jugador %i' % numero_de_jugador))
             else:

@@ -8,7 +8,7 @@ class COLORES:
 
 
 class FORMAS:
-    TRINGULO = '▲'
+    TRIANGULO = '▲'
     DIAMANTE = '◆'
     CUADRADO = '■'
     CIRCULO = '●'

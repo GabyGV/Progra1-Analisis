@@ -9,13 +9,13 @@
 ####################################################
 
 import copy
-from player import Player
-from tablero import InvalidPlayException
+from jugador import Jugador
+from Tablero import InvalidPlayException
 
 jugadas = [] #almacenará las jugadas posibles con sus puntajes
 
 
-class bot_basico(Player):
+class bot_basico(Jugador):
     def jugar_turno(self, tablero):
         starts_validos = tablero.jugadas_posibles() #verifica cuales son las jugadas disponibles
         fichas = self._fichas.copy() #copia las fichas que tiene Player

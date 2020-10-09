@@ -1,6 +1,6 @@
-from game_board import tablero, Pieza, FORMAS, COLORES
+from Tablero import tablero, Pieza, FORMAS, COLORES
 from jugador import Jugador
-from bots import GreedyBot, SingleGreedyBot
+from bots import bot_basico, bot_mejorado
 
 
 class QwirkleGame:

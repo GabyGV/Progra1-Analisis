@@ -1,6 +1,6 @@
 from random import Random
 from termcolor import colored
-from tablero import InvalidPlayException
+from Tablero import InvalidPlayException
 
 
 class Jugador:

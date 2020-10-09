@@ -12,6 +12,7 @@ import copy
 from player import Player
 from tablero import InvalidPlayException
 
+jugadas = [] #almacenará las jugadas posibles con sus puntajes
 
 
 class bot_basico(Player):
@@ -19,8 +20,8 @@ class bot_basico(Player):
         starts_validos = tablero.jugadas_posibles() #verifica cuales son las jugadas disponibles
         fichas = self._fichas.copy() #copia las fichas que tiene Player
 
-        jugadas = [] #almacenará las jugadas posibles con sus puntajes
-        bot_backtraking(tablero, jugadas, starts_validos, fichas, 0)
+        #jugadas = [] 
+        bot_backtraking(tablero, starts_validos, fichas, 0)
 
         tablero.reiniciar_turno() #deja el tablero como antes
 
@@ -34,7 +35,11 @@ class bot_basico(Player):
             self._fichas.pop(self._fichas.index(ficha))  #elimina la ficha usada
 
 #Backtraking
-def bot_backtraking(tablero, jugadas, starts_validos, fichas, i):
+def bot_backtraking(tablero, starts_validos, fichas, i):
+
+    if i >= len(fichas): #condición de salida
+        return 
+
     for (fila, columna) in starts_validos:
         try:
             tablero.jugar(fichas[i], x=fila, y=columna) #manda a jugar a la ficha en la posición disponible
@@ -42,8 +47,8 @@ def bot_backtraking(tablero, jugadas, starts_validos, fichas, i):
             'jugadas': [(fila, columna, fichas[i])],
             'score': tablero.score() #agrega a la lista la jugada y el puntaje obtenido #antes de esto puede estar la condición de poda
             })
-        except InvalidPlayException: #si la jugada no es valida, tira una excepción | falta programar
+        except InvalidPlayException: #si la jugada no es valida, tira una excepción 
                 pass
 
         bot_basico(tablero, jugadas, fichas, i+1)
-    return jugadas
+    return 

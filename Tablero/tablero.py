@@ -11,7 +11,7 @@
 #Librerías
 from termcolor import colored
 import copy
-from Tablero import InvalidPlayException
+from Tablero.excepciones import InvalidPlayException
 
 class Tablero:
 
@@ -60,7 +60,7 @@ class Tablero:
             columna = 1
         else:
             if not self.la_jugada_es_valida(ficha, fila, columna): #si la jugada no es válida, devuelve una excepción
-                raise InvalidPlayException() 
+                raise InvalidPlayException
 
         self._tablero[columna][fila] = ficha #coloca la ficha en el tablero
         self._jugadas.append((fila, columna)) #agrega la jugada a la lista de jugadas
@@ -156,9 +156,9 @@ class Tablero:
             for fila in range(len(self._tablero[columna])):
                 if self._tablero[columna][fila] is not None:
                     if (fila, columna) in self._ultimas_jugadas:
-                        linea += colored(self._tablero[columna][fila].shape + ' ', self._tablero[columna][fila].color, 'on_white')
+                        linea += colored(self._tablero[columna][fila].forma + ' ', self._tablero[columna][fila].color, 'on_white')
                     else:
-                        linea += colored(self._tablero[columna][fila].shape + ' ', self._tablero[columna][fila].color)
+                        linea += colored(self._tablero[columna][fila].forma + ' ', self._tablero[columna][fila].color)
                 elif (fila, columna) in jugadas_posibles and show_valid_placements:
                     linea += colored('☐', 'white') + ' '
                 else:
@@ -305,13 +305,13 @@ class Tablero:
             return True
 
         if all(row[i].color == row[0].color for i in range(len(row))): #verifica si el color de todas las fichas es el mismo
-            shapes = [] 
+            formas = [] 
             for i in range(len(row)): #por cada ficha
-                if row[i].shape in shapes: #si la ficha ya se encuentra en la lista de formas
+                if row[i].forma in formas: #si la ficha ya se encuentra en la lista de formas
                     return False #la hilera es inválida
-                shapes.append(row[i].shape) # si no, agrega la forma al lista de formas
+                formas.append(row[i].forma) # si no, agrega la forma al lista de formas
 
-        elif all(row[i].shape == row[0].shape for i in range(len(row))): #verifica si la forma de todas las fichas es la misma
+        elif all(row[i].forma == row[0].forma for i in range(len(row))): #verifica si la forma de todas las fichas es la misma
             colors = []
             for i in range(len(row)): #por cada ficha
                 if row[i].color in colors: #si el color ya se encuentra en la lista de colores 

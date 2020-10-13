@@ -9,7 +9,7 @@ class Jugador:
         self._score = 0
         self._nombre = nombre
 
-    def ejegir_fichas(self, bolsa_de_fichas):
+    def elegir_fichas(self, bolsa_de_fichas):
         rnd = Random()
         while len(self._fichas) < 6 and len(bolsa_de_fichas) > 0: #mientras el jugador tenga menos de 6 fichas y la bolsa de fichas no esté vacía
             i = rnd.randint(0, len(bolsa_de_fichas) - 1) #elige un número random entre 0 y el largo de la bolsa de fichas para sacar una ficha

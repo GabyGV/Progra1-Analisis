@@ -1,4 +1,4 @@
-from Tablero import tablero, Pieza, FORMAS, COLORES
+from Tablero import Tablero, Pieza, FORMAS, COLORES
 from jugador import Jugador
 from bots import bot_basico, bot_mejorado
 
@@ -11,7 +11,7 @@ class QwirkleGame:
 
     def main(self, jugadores):
 
-        self._tablero = tablero()
+        self._tablero = Tablero()
         self._generar_nueva_bolsa_de_fichas()
 
         numero_de_jugador = 1
@@ -24,7 +24,7 @@ class QwirkleGame:
                 self._jugadores.append(Jugador('Jugador %i' % numero_de_jugador))
             else:
                 raise ValueError('%s no es un tipo de jugador válido' % jugador)
-            player_number += 1
+            numero_de_jugador += 1
 
         score_message = (-1, 0)
         jugador_actual = 0

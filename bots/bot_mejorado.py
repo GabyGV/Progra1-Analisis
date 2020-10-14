@@ -47,7 +47,7 @@ def bot_backtraking(tablero, starts_validos, fichas, i):
         return 
 
     for (fila, columna) in starts_validos:
-        #fichaJugada = False
+        fichaJugada = False
         try:
             tablero.jugar(fichas[i], fila, columna) #manda a jugar a la ficha en la posición disponible
             if(tablero.score() != 5):
@@ -55,27 +55,27 @@ def bot_backtraking(tablero, starts_validos, fichas, i):
                 'jugadas': [(fila, columna, fichas[i])],
                 'score': tablero.score() #agrega a la lista la jugada y el puntaje obtenido #antes de esto puede estar la condición de poda
                 })
-                #fichaJugada = True
-                #fichasRestantes = fichas.copy()
-                #fichasRestantes.pop(i)
+                fichaJugada = True
+                fichasRestantes = fichas.copy()
+                fichasRestantes.pop(i)
             if tablero.score() == 12:
                 return
         except InvalidPlayException: #si la jugada no es valida, tira una excepción 
                 pass
-        """ ahi mas o menos intente ponerlo
+        
         while fichaJugada:
                     fichaJugada = False
                     for (nx, ny) in tablero.jugadas_posibles():
-                        for j in range(len(tiles_remaining)):
+                        for j in range(len(fichasRestantes)):
                             try:
-                                tablero.jugar(tiles_remaining[j], x=nx, y=ny)
-                                plays[-1]['plays'].append((nx, ny, tiles_remaining[j]))
-                                plays[-1]['score'] = tablero.score()
-                                tiles_remaining.pop(j)
+                                tablero.jugar(fichasRestantes[j], fila=nx, columna=ny)
+                                jugadas[-1]['jugadas'].append((nx, ny, fichasRestantes[j]))
+                                jugadas[-1]['score'] = tablero.score()
+                                fichasRestantes.pop(j)
                                 fichaJugada = True
                                 break
                             except InvalidPlayException:
-                                pass"""
+                                pass
 
         bot_backtraking(tablero, starts_validos, fichas, i+1)
     return 

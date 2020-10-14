@@ -11,16 +11,19 @@
 import copy
 from jugador import Jugador
 from Tablero import InvalidPlayException #podría ser aquí
+from termcolor import colored
 
-jugadas = [] #almacenará las jugadas posibles con sus puntajes
+#jugadas = [] #almacenará las jugadas posibles con sus puntajes
 
 
 class bot_mejorado(Jugador):
     def jugar_turno(self, tablero):
         starts_validos = tablero.jugadas_posibles() #verifica cuales son las jugadas disponibles
         fichas = self._fichas.copy() #copia las fichas que tiene Player
+        print_fichas(fichas)
 
-        #jugadas = [] 
+        global jugadas 
+        jugadas = []
         bot_backtraking(tablero, starts_validos, fichas, 0)
 
         tablero.reiniciar_turno() #deja el tablero como antes
@@ -31,8 +34,11 @@ class bot_mejorado(Jugador):
         mejor_jugada = max(jugadas, key=lambda p: p['score']) #saca los puntajes más altos obtenidos en las jugadas usando la llave score
 
         for (fila, columna, ficha) in mejor_jugada['jugadas']: #por cada una de las mejores jugadas
-            tablero.jugar(ficha, fila, columna) #realiza la jugada en el tablero
-            self._fichas.pop(self._fichas.index(ficha))  #elimina la ficha usada
+            try:
+                tablero.jugar(ficha, fila, columna) #realiza la jugada en el tablero
+                self._fichas.pop(self._fichas.index(ficha))  #elimina la ficha usada
+            except InvalidPlayException:
+                pass
 
 #Backtraking
 def bot_backtraking(tablero, starts_validos, fichas, i):
@@ -52,3 +58,10 @@ def bot_backtraking(tablero, starts_validos, fichas, i):
 
         bot_backtraking(tablero, starts_validos, fichas, i+1)
     return 
+
+def print_fichas(fichas):
+    fichas_output = ''
+    for ficha in fichas:
+        fichas_output += colored(ficha.forma, ficha.color) + ' '
+    print('\n  Las fichas: %s' % fichas_output)
+    print('              1 2 3 4 5 6\n')

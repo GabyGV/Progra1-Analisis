@@ -344,7 +344,8 @@ class Tablero:
             self._jugadas = [(play[0] + 1, play[1]) for play in self._jugadas]
             self._ultimas_jugadas = [(play[0] + 1, play[1]) for play in self._ultimas_jugadas]
 
-        # Right padding
+        # Revisa el boque derecho
+
         right = len(self._tablero[0]) - 1
         if any(self._tablero[i][right] is not None for i in range(len(self._tablero))):
             for i in range(len(self._tablero)):

@@ -1,3 +1,4 @@
+#IMPORTACIONES
 from Tablero import Tablero, Pieza, FORMAS, COLORES
 from jugador import Jugador
 from bots import bot_basico, bot_mejorado

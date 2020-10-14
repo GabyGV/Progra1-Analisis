@@ -24,7 +24,7 @@ class Figura:
     circulo = '●'
     estrella = '★'
     triangulo = '▲'
-    diamente = '◆'
+    diamante = '◆'
     asterisco = '❈'
 
 class Pieza:
@@ -71,7 +71,7 @@ class Tablero:
     def getJugadas(self):
         return self.jugadas
 
-    def jugar(jugar, pieza, col=1, fil=1):
+    def jugar(self, pieza, col=1, fil=1): #aca hice cambio
         if len(self.table)==0:
             self.table = [[None]*3 for i in range(3)]
             col = 1
@@ -100,7 +100,7 @@ class Tablero:
                 minCol -= 1
 
             maxCol = col
-            while maxCol +1 < len(self.table[fila]) and self.table[fil][maxCol +1] is not None:
+            while maxCol +1 < len(self.table[fil]) and self.table[fil][maxCol +1] is not None:
                 maxCol += 1
 
             if minCol != maxCol:
@@ -122,7 +122,7 @@ class Tablero:
                     puntos +=6
 
             #repetir con filas#
-            minFil = y
+            minFil = fil
             while minFil -1 >= 0 and self.table[minFil -1][col] is not None:
                 minFil -= 1
 
@@ -163,11 +163,11 @@ class Tablero:
             return False
         if fil < 0 or fil >=len(self.table):
             return False
-        if col == 0 and y==0:
+        if col == 0 and fil==0:
             return False
-        if col == 0 and fila ==len(self.table) -1:
+        if col == 0 and fil ==len(self.table) -1:
             return False
-        if col == len(self.table[0]) -1 and fil ==len(self.board) -1:
+        if col == len(self.table[0]) -1 and fil ==len(self.table) -1:
             return False
         if col == len(self.table[0]) -1 and fil == 0:
             return False
@@ -186,7 +186,7 @@ class Tablero:
         if all(campoCercano):
             return False
 
-        juego = [(juegada[0], jugada[1]) for jugada in self.jugadas]
+        juego = [(jugada[0], jugada[1]) for jugada in self.jugadas]
         if len(juego) > 0:
             validarHori = True
             validarVerti = True
@@ -291,12 +291,12 @@ class Tablero:
 
         if any(self.table[i][0] is not None for i in range(len(self.table))):
             for i in range(len(self.table)):
-                self._table[i].insert(0, None)
+                self.table[i].insert(0, None)
             self.jugadas = [(jugada[0] + 1, jugada[1]) for jugada in self.jugadas]
             self.ultimasJugadas = [(jugada[0] + 1, jugada[1]) for jugada in self.ultimasJugadas]
             
         derecha = len(self.table[0]) - 1
-        if any(self._table[i][derecha] is not None for i in range(len(self.table))):
+        if any(self.table[i][derecha] is not None for i in range(len(self.table))):
             for i in range(len(self.table)):
                 self.table[i] += [None]
 

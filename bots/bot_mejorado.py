@@ -42,7 +42,7 @@ def bot_backtraking(tablero, starts_validos, fichas, i):
 
     for (fila, columna) in starts_validos:
         try:
-            tablero.jugar(fichas[i], x=fila, y=columna) #manda a jugar a la ficha en la posición disponible
+            tablero.jugar(fichas[i], fila, columna) #manda a jugar a la ficha en la posición disponible
             jugadas.append({ 
             'jugadas': [(fila, columna, fichas[i])],
             'score': tablero.score() #agrega a la lista la jugada y el puntaje obtenido #antes de esto puede estar la condición de poda

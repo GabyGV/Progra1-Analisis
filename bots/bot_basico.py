@@ -12,7 +12,7 @@ import copy
 from jugador import Jugador
 from Tablero import InvalidPlayException #podría ser aquí
 
-jugadas = [] #almacenará las jugadas posibles con sus puntajes
+#jugadas = [] #almacenará las jugadas posibles con sus puntajes
 
 
 class bot_basico(Jugador):
@@ -20,7 +20,8 @@ class bot_basico(Jugador):
         starts_validos = tablero.jugadas_posibles() #verifica cuales son las jugadas disponibles
         fichas = self._fichas.copy() #copia las fichas que tiene Player
 
-        #jugadas = [] 
+        global jugadas 
+        jugadas = []
         bot_backtraking(tablero, starts_validos, fichas, 0)
 
         tablero.reiniciar_turno() #deja el tablero como antes
@@ -31,8 +32,11 @@ class bot_basico(Jugador):
         mejor_jugada = max(jugadas, key=lambda p: p['score']) #saca los puntajes más altos obtenidos en las jugadas usando la llave score
 
         for (fila, columna, ficha) in mejor_jugada['jugadas']: #por cada una de las mejores jugadas
-            tablero.jugar(ficha, fila, columna) #realiza la jugada en el tablero
-            self._fichas.pop(self._fichas.index(ficha))  #elimina la ficha usada
+            try:
+                tablero.jugar(ficha, fila, columna) #realiza la jugada en el tablero
+                self._fichas.pop(self._fichas.index(ficha))  #elimina la ficha usada
+            except InvalidPlayException:
+                pass
 
 #Backtraking
 def bot_backtraking(tablero, starts_validos, fichas, i):
